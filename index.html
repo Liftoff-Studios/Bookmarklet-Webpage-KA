@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>bookmarklet</title>
+    </head>
+    <body> 
+        <h1>Bot Bookmarklet</h1>
+        This is an experimental automatic reply bookmarklet. Please do not use.... only for my personal use
+        
+    <!--Source Code-->
+    <script type>
+        var replies = [
+            ["Nice!", "Thanks!"],
+            ["Nice!!", "Thanks!"],
+            ["Great Job!", "Thanks!"],
+            ["Awesome!", "Thanks!"],
+            ["test", "Thanks for testing !!"]
+        ];
+        
+        var x = document.cookie.split(";");
+        var fkey = "";
+        for (var i = 0; i < x.length; i++) {
+            var z = x[i].split("=");
+            if (z[0] === " fkey") {
+                fkey = z[1];
+            }
+        };
+
+
+        function look() {
+    fetch("https://www.khanacademy.org/api/internal/user/notifications/readable?casing=camel&lang=en&_=210730-1439-68154a21d413_1627703922035", {
+            "headers": {
+                "accept": "*/*",
+                "accept-language": "en-US,en;q=0.9,ca;q=0.8,zh-TW;q=0.7,zh;q=0.6,de;q=0.5,eo;q=0.4,ga;q=0.3",
+                "sec-ch-ua": "\"Chromium\";v=\"92\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"92\"",
+                "sec-ch-ua-mobile": "?0",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-origin",
+                "x-ka-fkey": fkey
+            },
+
+            "referrer": window.location,
+            "referrerPolicy": "strict-origin-when-cross-origin",
+            "body": null,
+            "method": "GET",
+            "mode": "cors",
+            "credentials": "include"
+        }).then(response => response.json())
+        .then(data => {
+            for (var i = 0; i < data.notifications.length; i++) {
+                if (data.notifications[i]["brandNew"] == true && data.notifications[i]["feedbackIsComment"] == true) {
+                    for (var j = 0; j < replies.length; j++) {
+                        if (data.notifications[i]["content"] == replies[j][0]) {
+
+                            fetch("https://www.khanacademy.org/api/internal/discussions/" + data.notifications[i]["feedback"] + "/replies?casing=camel&lang=en&_=210730-1439-68154a21d413_1627705421739", {
+                                "headers": {
+                                    "accept": "*/*",
+                                    "accept-language": "en-US,en;q=0.9,ca;q=0.8,zh-TW;q=0.7,zh;q=0.6,de;q=0.5,eo;q=0.4,ga;q=0.3",
+                                    "content-type": "application/json",
+                                    "sec-ch-ua": "\"Chromium\";v=\"92\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"92\"",
+                                    "sec-ch-ua-mobile": "?0",
+                                    "sec-fetch-dest": "empty",
+                                    "sec-fetch-mode": "cors",
+                                    "sec-fetch-site": "same-origin",
+                                    "x-ka-fkey": fkey
+                                },
+                                "referrer": "url with expand key",
+                                "referrerPolicy": "strict-origin-when-cross-origin",
+                                "body": "{\"text\":\"" + replies[j][1] + "\",\"topic_slug\":\"computer-programming\"}",
+                                "method": "POST",
+                                "mode": "cors",
+                                "credentials": "include"
+                            });
+                        }
+                    }
+                }
+            }
+            fetch("https://www.khanacademy.org/api/internal/user/notifications/clear_brand_new?lang=en&_=210730-1439-68154a21d413_1627801250341", {
+                "headers": {
+                    "accept": "*/*",
+                    "accept-language": "en-US,en;q=0.9,ca;q=0.8,zh-TW;q=0.7,zh;q=0.6,de;q=0.5,eo;q=0.4,ga;q=0.3",
+                    "sec-ch-ua": "\"Chromium\";v=\"92\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"92\"",
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-fetch-dest": "empty",
+                    "sec-fetch-mode": "cors",
+                    "sec-fetch-site": "same-origin",
+                    "x-ka-fkey": fkey
+                },
+                "referrer": "https://www.khanacademy.org/computing/computer-programming/browse",
+                "referrerPolicy": "strict-origin-when-cross-origin",
+                "body": null,
+                "method": "POST",
+                "mode": "cors",
+                "credentials": "include"
+            });
+        });
+
+}
+
+        // window.setInterval(look,5000)
+    </script>
+    <script type>
+        var replies = [
+    ["Nice!", "Thanks!"],
+    ["Nice!!", "Thanks!"],
+    ["Great Job!", "Thanks!"],
+    ["Awesome!", "Thanks!"],
+    ["test", "Thanks for testing !!"]
+];
+
+var x = document.cookie.split(";");
+var fkey = "";
+for (var i = 0; i < x.length; i++) {
+    var z = x[i].split("=");
+    if (z[0] === " fkey") {
+        fkey = z[1];
+    }
+};
+
+
+function look() {
+    fetch("https://www.khanacademy.org/api/internal/user/notifications/readable?casing=camel&lang=en&_=210730-1439-68154a21d413_1627703922035", {
+            "headers": {
+                "accept": "*/*",
+                "accept-language": "en-US,en;q=0.9,ca;q=0.8,zh-TW;q=0.7,zh;q=0.6,de;q=0.5,eo;q=0.4,ga;q=0.3",
+                "sec-ch-ua": "\"Chromium\";v=\"92\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"92\"",
+                "sec-ch-ua-mobile": "?0",
+                "sec-fetch-dest": "empty",
+                "sec-fetch-mode": "cors",
+                "sec-fetch-site": "same-origin",
+                "x-ka-fkey": fkey
+            },
+
+            "referrer": window.location,
+            "referrerPolicy": "strict-origin-when-cross-origin",
+            "body": null,
+            "method": "GET",
+            "mode": "cors",
+            "credentials": "include"
+        }).then(response => response.json())
+        .then(data => {
+            for (var i = 0; i < data.notifications.length; i++) {
+                if (data.notifications[i]["brandNew"] == true && data.notifications[i]["feedbackIsComment"] == true) {
+                    for (var j = 0; j < replies.length; j++) {
+                        if (data.notifications[i]["content"] == replies[j][0]) {
+
+                            fetch("https://www.khanacademy.org/api/internal/discussions/" + data.notifications[i]["feedback"] + "/replies?casing=camel&lang=en&_=210730-1439-68154a21d413_1627705421739", {
+                                "headers": {
+                                    "accept": "*/*",
+                                    "accept-language": "en-US,en;q=0.9,ca;q=0.8,zh-TW;q=0.7,zh;q=0.6,de;q=0.5,eo;q=0.4,ga;q=0.3",
+                                    "content-type": "application/json",
+                                    "sec-ch-ua": "\"Chromium\";v=\"92\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"92\"",
+                                    "sec-ch-ua-mobile": "?0",
+                                    "sec-fetch-dest": "empty",
+                                    "sec-fetch-mode": "cors",
+                                    "sec-fetch-site": "same-origin",
+                                    "x-ka-fkey": fkey
+                                },
+                                "referrer": "url with expand key",
+                                "referrerPolicy": "strict-origin-when-cross-origin",
+                                "body": "{\"text\":\"" + replies[j][1] + "\",\"topic_slug\":\"computer-programming\"}",
+                                "method": "POST",
+                                "mode": "cors",
+                                "credentials": "include"
+                            });
+                        };
+                    };
+                };
+            };
+            fetch("https://www.khanacademy.org/api/internal/user/notifications/clear_brand_new?lang=en&_=210730-1439-68154a21d413_1627801250341", {
+                "headers": {
+                    "accept": "*/*",
+                    "accept-language": "en-US,en;q=0.9,ca;q=0.8,zh-TW;q=0.7,zh;q=0.6,de;q=0.5,eo;q=0.4,ga;q=0.3",
+                    "sec-ch-ua": "\"Chromium\";v=\"92\", \" Not A;Brand\";v=\"99\", \"Google Chrome\";v=\"92\"",
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-fetch-dest": "empty",
+                    "sec-fetch-mode": "cors",
+                    "sec-fetch-site": "same-origin",
+                    "x-ka-fkey": fkey
+                },
+                "referrer": "https://www.khanacademy.org/computing/computer-programming/browse",
+                "referrerPolicy": "strict-origin-when-cross-origin",
+                "body": null,
+                "method": "POST",
+                "mode": "cors",
+                "credentials": "include"
+            });
+        });
+
+};
+
+// window.setInterval(look,5000);
+    </script>
+    </body>
+</html>
